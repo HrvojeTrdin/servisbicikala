@@ -1,0 +1,41 @@
+USE [Servis]
+GO
+/****** Object:  Table [dbo].[Klijenti]    Script Date: 19/10/2024 16:24:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Klijenti](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Ime] [nvarchar](max) NOT NULL,
+	[Prezime] [nvarchar](max) NOT NULL,
+	[Telefon] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_Klijenti] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Servisi]    Script Date: 19/10/2024 16:24:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Servisi](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[VrstaServisa] [nvarchar](max) NOT NULL,
+	[RadniSati] [decimal](18, 2) NOT NULL,
+	[Cijena] [decimal](18, 2) NOT NULL,
+	[KlijentId] [int] NOT NULL,
+ CONSTRAINT [PK_Servisi] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Servisi]  WITH CHECK ADD  CONSTRAINT [FK_Servisi_Klijenti_KlijentId] FOREIGN KEY([KlijentId])
+REFERENCES [dbo].[Klijenti] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Servisi] CHECK CONSTRAINT [FK_Servisi_Klijenti_KlijentId]
+GO
